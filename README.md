@@ -25,6 +25,9 @@
 
 ## 🎯 Executive Overview
 
+> [!IMPORTANT]
+> **Kaggle Judges & Reviewers:** The core logic, persona design, and instructional scaffolding for all 5 AI Agents are fully documented. Please review the [**Agent Prompts Audit (PROMPTS.md)**](./PROMPTS.md) to evaluate the Prompt Engineering methodology.
+
 **The Matrix Quant Suite** is an institutional-grade, multi-agent AI system designed to actively replace human quantitative analysts in High-Frequency Trading (HFT). 
 
 Raw tick data in highly volatile pairs like XAUUSD (Gold) is incredibly toxic—plagued by erratic jump-diffusion, microstructural noise, and spread-widening. This project orchestrates a squad of **5 specialized AI agents** that autonomously ingest premium data, reason over complex market regimes, and deploy mathematically rigorous `C++ / MQL5` filtering algorithms directly to MetaTrader 5.
