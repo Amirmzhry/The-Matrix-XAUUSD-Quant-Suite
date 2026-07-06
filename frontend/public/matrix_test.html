@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Terminal Test</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+        
+        body {
+            background-color: #020408;
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .matrix-terminal {
+            width: 100%;
+            max-width: 800px;
+            height: 500px;
+            background-color: #050a0f;
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: inset 0 0 20px rgba(0, 255, 65, 0.05), 0 0 15px rgba(0, 255, 65, 0.1);
+            overflow-y: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .matrix-text {
+            color: #00FF41; /* Classic Matrix Green */
+            text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);
+            white-space: pre-wrap;
+        }
+
+        .matrix-text.warning {
+            color: #ffb700;
+            text-shadow: 0 0 5px rgba(255, 183, 0, 0.5);
+        }
+
+        .matrix-text.error {
+            color: #ff4560;
+            text-shadow: 0 0 5px rgba(255, 69, 96, 0.5);
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 15px;
+            background-color: #00FF41;
+            box-shadow: 0 0 5px rgba(0, 255, 65, 0.8);
+            animation: blink 1s step-end infinite;
+            vertical-align: middle;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Scrollbar styling */
+        .matrix-terminal::-webkit-scrollbar {
+            width: 8px;
+        }
+        .matrix-terminal::-webkit-scrollbar-track {
+            background: #020408;
+        }
+        .matrix-terminal::-webkit-scrollbar-thumb {
+            background: rgba(0, 255, 65, 0.3);
+            border-radius: 4px;
+        }
+        .matrix-terminal::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 255, 65, 0.6);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="matrix-terminal" id="terminal">
+        <!-- Text will be typed here -->
+    </div>
+
+    <script>
+        const logs = [
+            "Initializing The Matrix: XAUUSD Quant Suite...",
+            "[SYSTEM] Establishing secure handshake with Dukascopy feed...",
+            "[DataAnalystAgent] Commencing Market Intelligence Scan.",
+            "[DataAnalystAgent] Extracting microstructure anomalies...",
+            "[LeadQuantAgent] Calculating optimal Hampel parameters.",
+            "[LeadQuantAgent] Volatility signature matches HEAVY_NOISE regime.",
+            "WARN: Tail index expansion detected at 2025-01-06 09:30:01.",
+            "[RiskOfficerAgent] Running safety evaluation...",
+            "[RiskOfficerAgent] APPROVED. Q-Score is within operational threshold.",
+            "ERR: Subprocess timeout connecting to backup node."
+        ];
+
+        const terminal = document.getElementById('terminal');
+        let lineIndex = 0;
+        let charIndex = 0;
+
+        // Create cursor
+        const cursor = document.createElement('span');
+        cursor.className = 'cursor';
+
+        function typeWriter() {
+            if (lineIndex < logs.length) {
+                const currentLineText = logs[lineIndex];
+                
+                // If starting a new line, create a div for it
+                let lineDiv = document.getElementById(`line-${lineIndex}`);
+                if (!lineDiv) {
+                    lineDiv = document.createElement('div');
+                    lineDiv.id = `line-${lineIndex}`;
+                    
+                    if (currentLineText.startsWith('WARN')) {
+                        lineDiv.className = 'matrix-text warning';
+                    } else if (currentLineText.startsWith('ERR')) {
+                        lineDiv.className = 'matrix-text error';
+                    } else {
+                        lineDiv.className = 'matrix-text';
+                    }
+                    
+                    terminal.appendChild(lineDiv);
+                    terminal.appendChild(cursor); // Keep cursor at the end
+                }
+
+                if (charIndex < currentLineText.length) {
+                    lineDiv.textContent += currentLineText.charAt(charIndex);
+                    charIndex++;
+                    
+                    // Auto-scroll to bottom
+                    terminal.scrollTop = terminal.scrollHeight;
+                    
+                    // Random typing speed between 10ms and 50ms for realism
+                    setTimeout(typeWriter, Math.random() * 40 + 10);
+                } else {
+                    // Line finished, wait a bit before next line
+                    lineIndex++;
+                    charIndex = 0;
+                    setTimeout(typeWriter, Math.random() * 500 + 200);
+                }
+            }
+        }
+
+        // Start typing
+        setTimeout(typeWriter, 1000);
+    </script>
+</body>
+</html>

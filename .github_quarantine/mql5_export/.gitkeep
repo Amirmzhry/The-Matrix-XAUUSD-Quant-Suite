@@ -1,0 +1,3 @@
+# mql5_export/ — Generated MQL5 header files
+# Place HFT_Tick_Factory.mqh here after pipeline execution.
+# Deploy to: %AppData%\MetaQuotes\Terminal\<ID>\MQL5\Include\

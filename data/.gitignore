@@ -1,0 +1,10 @@
+# Ignore all data files to prevent bloating GitHub repository
+*
+# Keep this file to track the folder structure
+!.gitignore
+!raw/
+!processed/
+raw/*
+!raw/.gitignore
+processed/*
+!processed/.gitignore
