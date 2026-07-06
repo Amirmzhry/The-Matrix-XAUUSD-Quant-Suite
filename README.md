@@ -117,5 +117,9 @@ gcloud run deploy the-matrix-quant-suite \
 <div align="center">
   <i>Developed by <b>Amir Mazaheri</b> — Algorithmic Trading Systems Engineer</i>
   <br />
-  <a href="https://github.com/Amirmzhry">GitHub</a> • <a href="https://www.kaggle.com/amirmzhry">Kaggle</a>
+  <a href="mailto:amir.mazaherii1995@gmail.com">amir.mazaherii1995@gmail.com</a>
+  <br />
+  <a href="https://github.com/Amirmzhry">GitHub</a> • 
+  <a href="https://www.linkedin.com/in/amir-mazaheri-31a627420">LinkedIn</a> • 
+  <a href="https://www.kaggle.com/amirmzhry">Kaggle</a>
 </div>
