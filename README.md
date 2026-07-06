@@ -47,9 +47,9 @@ graph TD
     C -->|Selects Filter Strategy| D(Agent 3: Risk Officer)
     
     D -->|Validates Math & Floors| E{Is Approved?}
-    E -- No -->|ReAct Escalation| C
-    E -- Yes --> F(Agent 4: Visualizer)
-    E -- Yes --> G(Agent 5: MQL5 Synthesizer)
+    E -->|No: ReAct Escalation| C
+    E -->|Yes| F(Agent 4: Visualizer)
+    E -->|Yes| G(Agent 5: MQL5 Synthesizer)
     
     F -->|Plotly Dashboards| H[React Frontend UI]
     G -->|Generates C++| I[Production .mqh File]
