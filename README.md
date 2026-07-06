@@ -25,14 +25,16 @@
 
 ## 🎯 Executive Overview
 
-**The Matrix Quant Suite** is an advanced 5-agent **ReAct (Reason + Act)** pipeline that actively replaces human quantitative analysts in the HFT tick pre-processing workflow. 
+**The Matrix Quant Suite** is an institutional-grade, multi-agent AI system designed to actively replace human quantitative analysts in High-Frequency Trading (HFT). 
 
-In High-Frequency Trading, raw tick data (especially in volatile pairs like XAUUSD) is highly toxic. It suffers from spread-widening, erratic jump-diffusion, and microstructural noise. The Matrix utilizes a squad of AI agents—powered by Google Gemini 2.5 Flash—to ingest raw Dukascopy tick data, compute institutional-grade risk metrics, reason over the market regime, and automatically synthesize a mathematically rigorous `C++ / MQL5` tick filtering strategy for direct deployment into MetaTrader 5.
+Raw tick data in highly volatile pairs like XAUUSD (Gold) is incredibly toxic—plagued by erratic jump-diffusion, microstructural noise, and spread-widening. This project orchestrates a squad of **5 specialized AI agents** that autonomously ingest premium data, reason over complex market regimes, and deploy mathematically rigorous `C++ / MQL5` filtering algorithms directly to MetaTrader 5.
 
-### 🌟 Business Value
-- **Zero-Latency Mitigation**: Filters toxic order flow *before* it reaches execution algorithms.
-- **Autonomous Reasoning**: Agents transparently debate and calculate parameters based on live volatility matrices.
-- **Risk-Gated Architecture**: A hard-coded Risk Officer prevents mathematically unsound filters from being deployed.
+### ⚡ System Power & Capabilities
+- **🧠 5-Agent ReAct Squad**: A specialized team of autonomous AI agents (Data Analyst, Lead Quant, Risk Officer, Visualizer, MQL5 Synthesizer) that debate and collaborate to construct flawless trading strategies.
+- **💎 Premium Data Integration**: Ingests and processes raw, institutional-grade XAUUSD tick data natively from **Dukascopy**.
+- **🚀 Gemini 2.5 Flash Engine**: Powered by Google's state-of-the-art LLM, enabling zero-latency logical reasoning and dynamic parameter calculation.
+- **🛡️ Risk-Gated Architecture**: Features a hard-coded Python "Risk Officer" that mathematically vetos unsound filters before they can reach execution.
+- **📈 MQL5 Native Synthesis**: Automatically writes, lints, and exports production-ready `C++` (MQL5) header files for immediate real-world deployment.
 
 ---
 
