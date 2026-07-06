@@ -1,5 +1,5 @@
 import React from 'react';
-import { Target, Cpu, Briefcase, FileCode2, Info, Rocket, ShieldCheck } from 'lucide-react';
+import { Target, Cpu, Briefcase, FileCode2, Info, ShieldCheck } from 'lucide-react';
 
 export default function ProjectProfile() {
   return (

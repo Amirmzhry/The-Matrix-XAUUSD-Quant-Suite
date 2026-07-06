@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  BarChart3, LineChart, Layers, HelpCircle, Activity, RadarChart, 
+  BarChart3, LineChart, Layers, HelpCircle, Activity,
   Database, Gauge, ShieldAlert, TrendingUp 
 } from 'lucide-react';
 import { 

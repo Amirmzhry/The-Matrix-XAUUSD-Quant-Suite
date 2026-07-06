@@ -1,0 +1,42 @@
+# Python temporary and cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Environment variables (Crucial for security)
+.env
+.env.*
+*.env
+
+# Dependencies & Environments
+.venv/
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE / Editor Files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Operating System Files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+
+# Streamlit local configs
+.streamlit/
+
+# ==========================================
+# Quarantine & Test Folders (Do Not Upload)
+# ==========================================
+tests_quarantine/
+tests/
+quarantine/
+.github_quarantine/

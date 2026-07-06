@@ -299,7 +299,7 @@ export default function LiveMonitor({ onStartPipeline, pipelineRunning, progress
                       <circle key={payload.id} cx={cx} cy={cy} r={5} fill="#B5514A" className="animate-ping" stroke="none" />
                     );
                   }
-                  return null;
+                  return <circle key={payload.id} r={0} />;
                 }}
                 activeDot={{ r: 6 }} 
               />

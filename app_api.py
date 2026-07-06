@@ -21,11 +21,11 @@ app.add_middleware(
 
 OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "output")
 
-@app.get("/health")
+@app.get("/api/health")
 def health_check():
     return {"status": "healthy", "timestamp": str(datetime.date.today())}
 
-@app.get("/run")
+@app.get("/api/run")
 def run_pipeline(start: str = "2025-01-06", end: str = "2025-01-07", mock: bool = False):
     """
     Spawns the master pipeline and streams execution logs to the frontend via SSE.
@@ -66,7 +66,7 @@ def run_pipeline(start: str = "2025-01-06", end: str = "2025-01-07", mock: bool 
 
     return StreamingResponse(log_generator(), media_type="text/event-stream")
 
-@app.get("/metrics")
+@app.get("/api/metrics")
 def get_metrics():
     """
     Parses and returns metrics from output/HFT_Execution_Report.md
@@ -106,7 +106,7 @@ def get_metrics():
         
     return metrics
 
-@app.get("/charts/{chart_name}")
+@app.get("/api/charts/{chart_name}")
 def get_chart(chart_name: str):
     """
     Serves generated Plotly charts (e.g. chart1_price_overlay.html)
@@ -116,7 +116,7 @@ def get_chart(chart_name: str):
         raise HTTPException(status_code=404, detail="Chart not found")
     return FileResponse(chart_path)
 
-@app.get("/download/{file_type}")
+@app.get("/api/download/{file_type}")
 def download_artifact(file_type: str):
     """
     Downloads compiled artifacts (mqh or report)
@@ -137,7 +137,7 @@ def download_artifact(file_type: str):
         
     return FileResponse(filepath, media_type=media_type, filename=filename)
 
-@app.get("/ticks")
+@app.get("/api/ticks")
 def get_ticks(limit: int = 100):
     """
     Reads output/cleaned_ticks.csv and returns the last `limit` ticks as JSON.
@@ -184,7 +184,37 @@ def get_ticks(limit: int = 100):
         print(f"Error loading ticks: {str(e)}")
         return []
 
+# ==========================================
+# React Frontend Serving (Cloud Run)
+# ==========================================
+FRONTEND_DIST = os.path.join(os.path.dirname(os.path.abspath(__file__)), "frontend", "dist")
+if os.path.exists(FRONTEND_DIST):
+    from fastapi.staticfiles import StaticFiles
+    
+    # Mount assets folder for JS/CSS
+    assets_dir = os.path.join(FRONTEND_DIST, "assets")
+    if os.path.exists(assets_dir):
+        app.mount("/assets", StaticFiles(directory=assets_dir), name="assets")
+        
+    @app.get("/{full_path:path}")
+    async def serve_frontend(full_path: str):
+        if full_path.startswith("api/"):
+            raise HTTPException(status_code=404, detail="API Route Not Found")
+            
+        file_path = os.path.join(FRONTEND_DIST, full_path)
+        if full_path and os.path.isfile(file_path):
+            return FileResponse(file_path)
+            
+        index_path = os.path.join(FRONTEND_DIST, "index.html")
+        if os.path.exists(index_path):
+            return FileResponse(index_path)
+            
+        raise HTTPException(status_code=404, detail="Frontend not built")
 
 if __name__ == "__main__":
+    import os
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8080)
+    
+    # Dynamically bind to the port provided by Google Cloud, default to 8000 locally
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("app_api:app", host="0.0.0.0", port=port)
